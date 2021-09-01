@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import com.scanLibrary.Logger;
 /**
  * Created by jhansi on 28/03/15.
  */
@@ -57,6 +57,9 @@ public class PolygonView extends FrameLayout {
         pointer2 = getImageView(getWidth(), 0);
         pointer3 = getImageView(0, getHeight());
         pointer4 = getImageView(getWidth(), getHeight());
+        Logger logger = Logger.getInstance();
+        logger.detectedEdges = logger.formatPoints(pointer1,pointer2,pointer3,pointer4);
+        logger.refinedEdges = logger.formatPoints(pointer1,pointer2,pointer3,pointer4);
         midPointer13 = getImageView(0, getHeight() / 2);
         midPointer13.setOnTouchListener(new MidPointTouchListenerImpl(pointer1, pointer3));
 
@@ -99,7 +102,8 @@ public class PolygonView extends FrameLayout {
         points.add(new PointF(pointer2.getX(), pointer2.getY()));
         points.add(new PointF(pointer3.getX(), pointer3.getY()));
         points.add(new PointF(pointer4.getX(), pointer4.getY()));
-
+        Logger logger = Logger.getInstance();
+        logger.refinedEdges = logger.formatPoints(pointer1,pointer2,pointer3,pointer4);
         return getOrderedPoints(points);
     }
 

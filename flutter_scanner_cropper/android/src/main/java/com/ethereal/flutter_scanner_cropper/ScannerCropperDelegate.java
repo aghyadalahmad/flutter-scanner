@@ -36,6 +36,7 @@ public class ScannerCropperDelegate implements PluginRegistry.ActivityResultList
         this.activity = activity;
     }
 
+    
     public void openCamera(MethodChannel.Result result, String imgPath, String tempSavePath) {
         String appDocDir = tempSavePath;
         this.result = result;

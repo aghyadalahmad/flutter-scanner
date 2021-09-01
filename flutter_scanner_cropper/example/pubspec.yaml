@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  image_picker: any
+  path_provider: any
   flutter_scanner_cropper:
     # When depending on this package from a real application you should use:
     #   flutter_scanner_cropper: ^x.y.z

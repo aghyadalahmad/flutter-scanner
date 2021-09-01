@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import com.scanlibrary.Logger;
 import java.io.IOException;
 
 /**
@@ -105,7 +105,9 @@ public class ResultFragment extends Fragment {
                             uri = Utils.getUri(bitmap, getPath(), false);
                         }
                         Log.d("onDoneButtonClickUri", uri);
-                        data.putExtra(ScanConstants.SCANNED_RESULT, uri);
+                        Logger logger = Logger.getInstance();
+                        String finalUri = uri + "<LOG>" + logger.detectedEdges + "<LOG>" + logger.refinedEdges;
+                        data.putExtra(ScanConstants.SCANNED_RESULT, finalUri);
                         getActivity().setResult(Activity.RESULT_OK, data);
                         original.recycle();
                         System.gc();

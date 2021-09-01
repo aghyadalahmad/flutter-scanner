@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_scanner_cropper/flutter_scanner_cropper.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -57,14 +61,18 @@ class _MyAppState extends State<MyApp> {
             RaisedButton(
               child: Text('Crop'),
               onPressed: () async {
-                String pathToCroppedImage =
-                    await FlutterScannerCropper.openCrop(
-                  src: '/storage/emulated/0/Download/test.jpg',
-                  dest: '/storage/emulated/0/Download/',
-                );
-                print(
-                    "\n\n\n\n\nResult from plugin which gives path to save file");
-                print(pathToCroppedImage);
+                final ImagePicker _picker = ImagePicker();
+                Directory tempDir = await getTemporaryDirectory();
+                String tempPath = tempDir.path;
+
+                final String photo =
+                    (await _picker.pickImage(source: ImageSource.camera)).path;
+                if (photo != null) {
+                  FlutterScannerCropper.openCrop(
+                    src: photo,
+                    dest: tempPath,
+                  ).then((value) => print(value));
+                }
               },
             ),
           ],
